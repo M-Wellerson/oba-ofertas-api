@@ -2,6 +2,8 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use App\Models\Categoria;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -17,7 +19,7 @@ $router->post('v1/login', 'AuthController@login');
 $router->post('v1/admin/login', 'AdminController@login');
 
 $router->get('/', function () use ($router) {
-    return env('APP_TIMEZONE', 'UTC1');
+    return Categoria::paginate(10);
 });
 
 
