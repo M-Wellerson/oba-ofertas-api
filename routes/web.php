@@ -17,7 +17,7 @@ $router->post('v1/login', 'AuthController@login');
 $router->post('v1/admin/login', 'AdminController@login');
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return env('host', 'no');
 });
 
 
@@ -34,15 +34,15 @@ $router->group(['prefix' => 'v1/categoria'], function () use ($router) {
     $router->get('/{id}',    'CategoriaController@show');
     $router->post('/',       'CategoriaController@store');
     $router->post('/{id}',    'CategoriaController@update');
-    $router->delete('/{id}', 'CategoriaController@destroy');
+    $router->delete('/{id}',               'CategoriaController@destroy');
 });
 
 $router->group(['prefix' => 'v1/usuario'], function () use ($router) {
-    $router->get('/',          'UsuarioController@index');
-    $router->get('/{id}',      'UsuarioController@show');
+    $router->get('/',        'UsuarioController@index');
+    $router->get('/{id}',     'UsuarioController@show');
     $router->post('/cadastro', 'UsuarioController@store');
-    $router->post('/{id}',     'UsuarioController@update');
-    $router->delete('/{id}',   'UsuarioController@destroy');
+    $router->post('/{id}',    'UsuarioController@update');
+    $router->delete('/{id}',  'UsuarioController@destroy');
 });
 
 $router->group(['prefix' => 'v1/admin'], function () use ($router) {
