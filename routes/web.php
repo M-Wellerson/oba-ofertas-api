@@ -2,8 +2,6 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
-use App\Models\Categoria;
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -19,7 +17,7 @@ $router->post('v1/login', 'AuthController@login');
 $router->post('v1/admin/login', 'AdminController@login');
 
 $router->get('/', function () use ($router) {
-    return Categoria::paginate(10);
+    return $router->app->version();
 });
 
 
