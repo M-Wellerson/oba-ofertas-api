@@ -34,15 +34,15 @@ $router->group(['prefix' => 'v1/categoria'], function () use ($router) {
     $router->get('/{id}',    'CategoriaController@show');
     $router->post('/',       'CategoriaController@store');
     $router->post('/{id}',    'CategoriaController@update');
-    $router->delete('/{id}',               'CategoriaController@destroy');
+    $router->delete('/{id}', 'CategoriaController@destroy');
 });
 
 $router->group(['prefix' => 'v1/usuario'], function () use ($router) {
-    $router->get('/',        'UsuarioController@index');
-    $router->get('/{id}',    'UsuarioController@show');
-    $router->post('/cadastro',       'UsuarioController@store');
-    $router->post('/{id}',   'UsuarioController@update');
-    $router->delete('/{id}',               'UsuarioController@destroy');
+    $router->get('/',          'UsuarioController@index');
+    $router->get('/{id}',      'UsuarioController@show');
+    $router->post('/cadastro', 'UsuarioController@store');
+    $router->post('/{id}',     'UsuarioController@update');
+    $router->delete('/{id}',   'UsuarioController@destroy');
 });
 
 $router->group(['prefix' => 'v1/admin'], function () use ($router) {
@@ -50,7 +50,7 @@ $router->group(['prefix' => 'v1/admin'], function () use ($router) {
     $router->get('/{id}',    'AdminController@show');
     $router->post('/',       'AdminController@store');
     $router->post('/{id}',   'AdminController@update');
-    $router->delete('/{id}',               'AdminController@destroy');
+    $router->delete('/{id}', 'AdminController@destroy');
 });
 
 $router->group(['prefix' => 'v1/cupom'], function () use ($router) {
@@ -58,5 +58,5 @@ $router->group(['prefix' => 'v1/cupom'], function () use ($router) {
     $router->get('/{id}',    'CupomController@show');
     $router->post('/',       'CupomController@store');
     $router->post('/{id}',   'CupomController@update');
-    $router->delete('/{id}',               'CupomController@destroy');
+    $router->delete('/{id}', 'CupomController@destroy');
 });
