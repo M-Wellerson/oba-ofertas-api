@@ -11,6 +11,8 @@ class Categoria extends Model
 
     protected $rules = [];
 
+    protected $table = 'categorias';
+
     protected $fillable = [
         "nome",
         "descricao",
