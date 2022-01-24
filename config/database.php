@@ -2,7 +2,7 @@
 return [
     'default' => env('DB_CONNECTION', 'mysql'),
     'connections' => [
-
+        'migrations' => 'migrations',
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
