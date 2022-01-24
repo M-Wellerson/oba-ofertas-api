@@ -17,7 +17,7 @@ $router->post('v1/login', 'AuthController@login');
 $router->post('v1/admin/login', 'AdminController@login');
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return env('APP_TIMEZONE', 'UTC1');
 });
 
 
