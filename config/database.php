@@ -2,21 +2,16 @@
 
 $url = parse_url(env("CLEARDB_DATABASE_URL"));
 
-$host = env('DB_HOST');
-$username = $url["user"];
-$password = $url["pass"];
-$database = substr($url["path"], 1);
-
 return [
     'default'     => 'mysql',
     'migrations'  => 'migrations',
     'connections' => [
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => $host,
-            'database'  => $database,
-            'username'  => $username,
-            'password'  => $password,
+            'host'      => env('DB_HOST'),
+            'database'  => env('DB_DATABASE'),
+            'username'  => env('DB_USERNAME'),
+            'password'  => env('DB_PASSWORD'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',

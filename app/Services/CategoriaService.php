@@ -23,11 +23,13 @@ class CategoriaService
             return $validator->errors();
         }
 
-        return Categoria::create($request->only([
+        Categoria::create($request->only([
             'nome',
             'descricao',
             'slug'
         ]));
+
+        return response()->json(['status' => 'success', 'message' => 'Criado com sucesso!']);
     }
 
     public static function update(Request $request, $id)
@@ -45,11 +47,13 @@ class CategoriaService
             return $validator->errors();
         }
 
-        return Categoria::updateOrCreate(['id' => $id], $request->only([
+        Categoria::updateOrCreate(['id' => $id], $request->only([
             'nome',
             'descricao',
             'slug'
         ]));
+
+        return response()->json(['status' => 'success', 'message' => 'Atualizado com sucesso!']);
     }
 
     public static function show($id)
