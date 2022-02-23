@@ -28,6 +28,7 @@ $app->withFacades();
 $app->withEloquent();
 
 $app->configure('database');
+$app->configure('cors');
 
 /*
 |--------------------------------------------------------------------------
@@ -75,11 +76,18 @@ $app->configure('app');
 */
 
 // $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
+//     App\Http\Middleware\ProtectedRouteMiddleware::class
 // ]);
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
+]);
+
+// $app->middleware([
+//     'auth' => App\Http\Middleware\CorsMiddleware::class,
+// ]);
+$app->middleware([
+    Fruitcake\Cors\HandleCors::class,
 ]);
 
 /*
@@ -98,6 +106,7 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
+$app->register(Fruitcake\Cors\CorsServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

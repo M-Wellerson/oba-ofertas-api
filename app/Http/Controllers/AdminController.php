@@ -16,7 +16,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return Admin::paginate(10);
+        return Admin::paginate(5);
     }
 
     /**

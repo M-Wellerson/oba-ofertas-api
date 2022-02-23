@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Admin;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +17,7 @@ class AdminService
             'nome'     => 'required|string|max:255',
             'password' => 'required|string|max:100',
             'nivel'    => 'required|string|max:status',
-            'status'   => 'required',
+            'status'   => 'boolean',
         ], [
             'required' => 'O campo :attribute é obrigatório.',
             'unique'   => 'O atributo :attribute já foi cadastrado.',
@@ -25,16 +26,18 @@ class AdminService
         ]);
 
         if ($validator->fails()) {
-            return $validator->errors();
+            return response()->json($validator->errors(), 400);
         }
 
-        return Admin::create([
+        Admin::create([
             'email'    => $request->email,
             'nome'     => $request->nome,
             'password' => app('hash')->make($request->password),
             'nivel'    => $request->nivel,
             'status'   => $request->status
         ]);
+
+        return self::login( [ 'email' => $request->email, 'password' => $request->password ] );
     }
 
     public static function update(Request $request, $id)
@@ -52,15 +55,17 @@ class AdminService
         ]);
 
         if ($validator->fails()) {
-            return $validator->errors();
+            return response()->json($validator->errors(), 400);
         }
 
-        return Admin::updateOrCreate(['id' => $id], $request->only([
+        Admin::updateOrCreate(['id' => $id], $request->only([
             'nome',
             'email',
             'nivel',
             'status'
         ]));
+
+        return response()->json(['status' => 'success', 'message' => 'Atualizado com sucesso!']);
     }
 
     public static function show($id)
@@ -82,7 +87,7 @@ class AdminService
         ]);
 
         if ($validator->fails()) {
-            return $validator->errors();
+            return response()->json($validator->errors(), 400);
         }
 
         if (!$token = auth('dashboard')->attempt($info)) {

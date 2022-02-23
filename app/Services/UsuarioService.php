@@ -21,7 +21,7 @@ class UsuarioService
         ]);
 
         if ($validator->fails()) {
-            return $validator->errors();
+            return response()->json($validator->errors(), 400);
         }
 
         return Usuario::create([ 
@@ -44,7 +44,7 @@ class UsuarioService
         ]);
 
         if ($validator->fails()) {
-            return $validator->errors();
+            return response()->json($validator->errors(), 400);
         }
 
         return Usuario::updateOrCreate(['id' => $id], $request->only([

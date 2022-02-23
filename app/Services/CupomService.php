@@ -23,7 +23,7 @@ class CupomService
         ]);
 
         if ($validator->fails()) {
-            return $validator->errors();
+            return response()->json($validator->errors(), 400);
         }
 
         return Cupom::create($request->only([
@@ -48,7 +48,7 @@ class CupomService
         ]);
 
         if ($validator->fails()) {
-            return $validator->errors();
+            return response()->json($validator->errors(), 400);
         }
 
         return Cupom::updateOrCreate(['id' => $id], $request->only([
@@ -60,7 +60,7 @@ class CupomService
 
     public static function show($id)
     {
-        $result = Cupom::where('id', $id)->orWhere('slug', 'like', "%$id%")->get()->first();
+        $result = Cupom::where('id', $id)->get()->first();
         if (empty($result)) {
             return response()->json(['status' => 'error', 'message' => 'Cupom não encontrado!']);
         }

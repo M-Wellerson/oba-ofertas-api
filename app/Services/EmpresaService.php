@@ -31,7 +31,7 @@ class EmpresaService
         ] );
 
         if ($validator->fails()) {
-            return $validator->errors();
+            return response()->json($validator->errors(), 400);
         }
 
         return Empresa::create( $request->only( [
@@ -73,7 +73,7 @@ class EmpresaService
         ] );
 
         if ($validator->fails()) {
-            return $validator->errors();
+            return response()->json($validator->errors(), 400);
         }
 
         return Empresa::updateOrCreate( ['id' => $id], $request->only( [
@@ -90,5 +90,14 @@ class EmpresaService
             'estado',
             'pais'
         ] ) );
+    }
+
+    public static function show($id)
+    {
+        $result = Empresa::where('id', $id)->orWhere('numero_identificacao', 'like', "%$id%")->get()->first();
+        if (empty($result)) {
+            return response()->json(['status' => 'error', 'message' => 'Empresa não encontrada!']);
+        }
+        return $result;
     }
 }

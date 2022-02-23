@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produto;
+use App\Services\ProdutoService;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
@@ -14,7 +15,7 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        return Produto::all();
+        return Produto::paginate(10);
     }
 
     /**
@@ -25,7 +26,11 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            return ProdutoService::create($request);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()], 422);
+        }
     }
 
     /**
@@ -34,9 +39,22 @@ class ProdutoController extends Controller
      * @param  \App\Models\Produto  $produto
      * @return \Illuminate\Http\Response
      */
-    public function show(Produto $produto)
+    public function show($id)
     {
-        //
+        try {
+            return ProdutoService::show($id);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()], 422);
+        }
+    }
+
+    public function GetByEmpresaID($id)
+    {
+        try {
+            return ProdutoService::GetByEmpresaID($id);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()], 422);
+        }
     }
 
     /**
@@ -57,9 +75,13 @@ class ProdutoController extends Controller
      * @param  \App\Models\Produto  $produto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            return ProdutoService::update($request, $id);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()], 422);
+        }
     }
 
     /**

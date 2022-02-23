@@ -41,11 +41,11 @@ class EmpresaController extends Controller
      */
     public function show($id)
     {
-        $result = Empresa::where('id', $id)->orWhere('numero_identificacao', 'like', "%$id%")->get()->first();
-        if (empty($result)) {
-            return response()->json(['status' => 'error', 'message' => 'Empresa não encontrada!']);
+        try {
+            return EmpresaService::show($id);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()], 422);
         }
-        return $result;
     }
 
     /**
@@ -81,8 +81,8 @@ class EmpresaController extends Controller
      * @param  \App\Models\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Empresa $empresa)
+    public function destroy($id)
     {
-        //
+        $res = Empresa::where('id',$id)->delete();
     }
 }

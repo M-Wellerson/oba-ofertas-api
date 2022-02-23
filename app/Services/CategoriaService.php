@@ -20,7 +20,7 @@ class CategoriaService
         ]);
 
         if ($validator->fails()) {
-            return $validator->errors();
+            return response()->json($validator->errors(), 400);
         }
 
         Categoria::create($request->only([
@@ -44,7 +44,7 @@ class CategoriaService
         ]);
 
         if ($validator->fails()) {
-            return $validator->errors();
+            return response()->json($validator->errors(), 400);
         }
 
         Categoria::updateOrCreate(['id' => $id], $request->only([

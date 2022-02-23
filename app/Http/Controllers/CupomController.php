@@ -49,9 +49,13 @@ class CupomController extends Controller
      * @param  \App\Models\Cupom  $cupom
      * @return \Illuminate\Http\Response
      */
-    public function show(Cupom $cupom)
+    public function show($id)
     {
-        //
+        try {
+            return CupomService::show($id);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()], 422);
+        }
     }
 
     /**
